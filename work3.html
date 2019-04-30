@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #big{
+            width: 300px;
+            height: 150px;
+            text-align: center;
+            line-height: 150px;
+            font-size: 40px;
+            color:red;
+            position: absolute;
+        }
+        #canvas{
+            width: 300px;
+            height: 150px;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="big"></div>
+    <canvas id="canvas"></canvas>
+</body>
+<script>
+    
+    var big=document.getElementById("big");
+    var canvas=document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+    //奖项随机
+    var arr=['一等奖','二等奖','三等奖','谢谢惠顾'];
+    var m=Math.floor(Math.random()*arr.length);
+    big.innerHTML=arr[m];
+
+    //绘制灰色背景
+    context.beginPath();
+    context.fillStyle="#ccc";
+    context.fillRect(0,0,300,150);
+    context.closePath();
+    //刮奖
+    //鼠标按下事件
+    canvas.onmousedown=function(event){
+        draw();
+        //鼠标移动事件
+        canvas.onmousemove=function(event){
+            draw();
+            paint();
+        }
+        //鼠标抬起事件
+        canvas.onmouseup=function(){
+            canvas.onmousemove=null;
+        }
+        //鼠标移出事件
+        canvas.onmouseout=function(){
+            canvas.onmousemove=null;
+        }
+        paint();
+    } 
+    //源图像绘制
+    function draw(){
+        //获取鼠标焦点
+        var x=event.clientX;
+        var y=event.clientY;
+        //绘制源图像
+        context.beginPath();
+        context.globalCompositeOperation='destination-out';
+        context.arc(x,y,20,0,2*Math.PI);
+        context.fill();
+        context.closePath();
+    }
+    //判断涂抹区域百分比函数
+    function paint(){
+        var imgData = context.getImageData(0, 0, 300, 150); //获得画布上所有的像素数据 
+        var k = 0; //记录所有数据中可以归为透明的数据
+        for (var i = 0; i < imgData.data.length; i += 4) { 
+            var alpha = imgData.data[i + 3]; 
+            if (alpha ==0) //如果透明度等于0，代表已经被涂抹
+                k++;
+        }
+        var percentage = k / (imgData.data.length / 4); //已经涂抹是地方占整张画布的百分比
+        //涂抹区域百分比，当用户涂抹了85%后，去掉涂层完成刮奖。
+        if (percentage >= 0.85){
+            context.beginPath();
+            context.globalCompositeOperation='destination-out';
+            context.fillRect(0,0,300,150);
+            context.closePath();
+        }     
+    } 
+</script>
+</html>
