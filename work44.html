@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* 大盒子 */
+        .box{
+            width: 390px;
+            height: 460px;
+            border: 4px solid rgb(204, 201, 201);           
+            position: relative;
+            overflow: hidden;
+        }
+        .box1{
+            width: 390px;
+            height: 270px;
+            position: relative;
+        }
+        img{
+            width: 100%;
+            height: 100%;
+            transition: transform 1s linear;
+        }
+        /* 图片添加蒙罩 */
+        .box1 div:nth-child(2){
+            width: 390px;
+            height: 270px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #000;
+            z-index: 1;
+            opacity: 0;
+            transition: 1s;
+        }
+        /* 中间正文部分 */
+        .content{
+            width: 100%;
+            height: 290px;
+            position: relative; 
+            background-color: #fff;
+            z-index: 4;
+            transition:1s;
+            transform: translateY(-25px);
+        }
+        span{
+            position:absolute;
+            width: 50px;
+            height: 25px;
+            background-color:rgb(253,117,70);
+            text-align: center;
+            color: #fff;
+            top: -25px;
+        }
+        .content h3:nth-child(2){
+            font-size: 23px;
+            transform: translate(23px,25px);
+        }
+        .content p:nth-child(3){
+            color:rgb(253,117,70);
+            font-size: 23px;
+            transform: translate(23px,10px);
+        }
+        .content p:nth-child(4){
+            width: 330px;
+            color:rgb(128,133,139);
+            font-size: 16px;
+            line-height: 30px;
+            text-align: justify;
+            transform: translate(23px,-10px);
+            opacity: 0;
+            transition: opacity 1s ease;
+            transition: 1s;
+        }
+        /* 底部评论 */
+        .under{
+            width: 100%;
+            height: 50px;
+            font-size: 13px;
+            font-weight:bold;
+            background-color: #fff;
+            color: rgb(194, 196, 199);
+            position: absolute;
+            left: 0;
+            transform: translate(23px,-160px);
+            z-index: 10;
+        }
+        /* 右上角圆形日期 */
+        .month{
+            width: 70px;
+            height: 70px;
+            position: absolute;
+            background-color:rgb(253,117,70);
+            border-radius: 35px;
+            top: 50px;
+            left: 300px;
+            z-index: 2;
+        }
+        .month p{
+            color: #fff;
+            text-align: center;
+            font-size: 19px;
+            font-weight: bold;
+        }
+        .month p:nth-child(1){
+            transform: translateY(-10px);
+        }
+        .month p:nth-child(2){
+            transform: translateY(-30px);
+        }
+        /* hover */
+        .box:hover img{
+            transform: scale(1.5);
+        }
+        .box:hover .content p:nth-child(4){
+            opacity: 1; 
+        }
+        .box:hover .content{
+            transform: translateY(-150px);
+            z-index: 4;
+        }
+        .box:hover .box1 div:nth-child(2){
+            z-index: 1;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- 大盒子 -->
+    <div class="box">
+            <!-- 背景图部分 -->
+            <div class="box1">
+               <img src="./zhanqiao.jpg" alt="">
+               <div></div>
+            </div>
+            <!-- 中间正文部分 -->
+            <div class="content">
+                <span>照片</span>
+                <h3>青岛栈桥</h3>
+                <p>国家AAAA级旅游景区</p>
+                <p>青岛栈桥是青岛海滨风景区的景点之一，是国务院于1982年首批公布的国家级风景名胜区。
+                青岛栈桥位于游人如织的青岛中山路南端，桥身从海岸探入如弯月般的青岛湾深处。
+                桥身供游人参观并在此停靠旅游船，由此乘船可看海上青岛。</p>
+            </div>
+            <!-- 底部评论 -->
+            <div class="under">
+                <p>10分钟前&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;123评论</p>
+            </div>
+            <!-- 右上角时间 -->
+            <div class="month">
+                <p>15</p>
+                <p>五月</p>
+            </div>
+    </div>
+</body>
+</html>
